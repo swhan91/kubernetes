@@ -89,6 +89,11 @@ func (m *mockHintProvider) Allocate(pod *v1.Pod, container *v1.Container) error 
 	return nil
 }
 
+func (m *mockHintProvider) DeAllocate(pod *v1.Pod, container *v1.Container) error {
+	//return DeAllocateError
+	return nil
+}
+
 func TestGetAffinity(t *testing.T) {
 	tcases := []struct {
 		name          string
