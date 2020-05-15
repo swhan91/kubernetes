@@ -17,7 +17,7 @@ limitations under the License.
 package cpumanager
 
 import (
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/klog"
 	"k8s.io/kubernetes/pkg/kubelet/cm/containermap"
 	"k8s.io/kubernetes/pkg/kubelet/cm/cpumanager/state"
@@ -57,6 +57,11 @@ func (m *fakeManager) RemoveContainer(containerID string) error {
 
 func (m *fakeManager) GetTopologyHints(pod *v1.Pod, container *v1.Container) map[string][]topologymanager.TopologyHint {
 	klog.Infof("[fake cpumanager] Get Topology Hints")
+	return map[string][]topologymanager.TopologyHint{}
+}
+
+func (m *fakeManager) GetPodLevelTopologyHints(pod *v1.Pod) map[string][]topologymanager.TopologyHint {
+	klog.Infof("[fake cpumanager] Get Pod Level Topology Hints")
 	return map[string][]topologymanager.TopologyHint{}
 }
 

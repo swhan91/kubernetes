@@ -22,7 +22,7 @@ import (
 	"strings"
 	"testing"
 
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/kubernetes/pkg/kubelet/cm/topologymanager/bitmask"
 	"k8s.io/kubernetes/pkg/kubelet/lifecycle"
@@ -81,6 +81,10 @@ type mockHintProvider struct {
 }
 
 func (m *mockHintProvider) GetTopologyHints(pod *v1.Pod, container *v1.Container) map[string][]TopologyHint {
+	return m.th
+}
+
+func (m *mockHintProvider) GetPodLevelTopologyHints(pod *v1.Pod) map[string][]TopologyHint {
 	return m.th
 }
 

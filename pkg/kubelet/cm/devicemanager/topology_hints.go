@@ -17,7 +17,7 @@ limitations under the License.
 package devicemanager
 
 import (
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/klog"
 	"k8s.io/kubernetes/pkg/kubelet/cm/topologymanager"
@@ -76,6 +76,12 @@ func (m *ManagerImpl) GetTopologyHints(pod *v1.Pod, container *v1.Container) map
 	}
 
 	return deviceHints
+}
+
+// GetPodLevelTopologyHints implements the TopologyManager HintProvider Interface which
+// ensures the Device Manager is consulted when Topology Aware Hints for Pod are created.
+func (m *ManagerImpl) GetPodLevelTopologyHints(pod *v1.Pod) map[string][]topologymanager.TopologyHint {
+	return nil
 }
 
 func (m *ManagerImpl) deviceHasTopologyAlignment(resource string) bool {
