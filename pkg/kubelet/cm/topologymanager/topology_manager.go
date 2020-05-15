@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"sync"
 
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/klog"
 	cputopology "k8s.io/kubernetes/pkg/kubelet/cm/cpumanager/topology"
 	"k8s.io/kubernetes/pkg/kubelet/cm/topologymanager/bitmask"
@@ -148,6 +148,9 @@ func NewManager(numaNodeInfo cputopology.NUMANodeInfo, topologyPolicyName string
 
 	case PolicySingleNumaNode:
 		policy = NewSingleNumaNodePolicy(numaNodes)
+
+	case PolicyPodLevelSingleNumaNode:
+		policy = NewPodLevelSingleNumaNodePolicy(numaNodes)
 
 	default:
 		return nil, fmt.Errorf("unknown policy: \"%s\"", topologyPolicyName)
