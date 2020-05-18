@@ -71,6 +71,20 @@ const (
 	PodLevelSingleNumaNodeTopologyManager = "pod-level-single-numa-node"
 )
 
+// TopologyManagerScope denotes that topology policy is applied
+// on a per-container basis or a per-Pod basis.
+type TopologyManagerScope string
+
+// Enum settings for different strategies of unit of kubelet topology policy.
+const (
+	// ContainerTopologyScope represents that
+	// topology policy is applied on a per-container basis.
+	ContainerScopeTopology = "container"
+	// PodTopologyScope represents that
+	// topology policy is applied on a per-pod basis.
+	PodScopeTopology = "pod"
+)
+
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // KubeletConfiguration contains the configuration for the Kubelet
@@ -218,6 +232,12 @@ type KubeletConfiguration struct {
 	// TopologyManagerPolicy is the name of the policy to use.
 	// Policies other than "none" require the TopologyManager feature gate to be enabled.
 	TopologyManagerPolicy string
+	// TopologyManagerScope is the scope that represents the units
+	// to which the topology policy is applied.
+	// "pod" scope requires the TopologyManager feature gate to be enabled.
+	// Default: "container"
+	// +optional
+	TopologyManagerScope string
 	// Map of QoS resource reservation percentages (memory only for now).
 	// Requires the QOSReserved feature gate to be enabled.
 	QOSReserved map[string]string
